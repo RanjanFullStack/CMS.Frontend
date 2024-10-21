@@ -2,11 +2,25 @@
     .card {
         &-body {
             .table {
+                th {
+                    white-space: nowrap;
+                    &:has(.bi) {
+                        cursor: pointer;
+                    }
+                }
+                .bi {
+                    margin-left: 5px;
+                    font-size: 16px;
+                }
                 td {
                     vertical-align: middle;
                 }
-            }
-            .btn {
+                th,
+                td {
+                    @media (max-width: 767px) {
+                        font-size: 14px;
+                    }
+                }
             }
         }
     }

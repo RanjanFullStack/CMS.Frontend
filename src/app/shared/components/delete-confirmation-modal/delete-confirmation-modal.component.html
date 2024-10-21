@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <h4 class="modal-title fs-5 fw-semibold">Delete Contact</h4>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="cancelDeletion()"
+  ></button>
+</div>
+<div class="modal-body">
+  <p>
+    Are you sure you want to delete the contact
+    <strong>{{ contactName }}</strong
+    >?
+  </p>
+</div>
+<div class="modal-footer">
+  <app-button
+    (click)="confirmDeletion()"
+    btnClass="btn btn-danger"
+    label="Delete"
+    ariaLabel="Delete"
+  ></app-button>
+  <app-button
+    (click)="cancelDeletion()"
+    btnClass="btn btn-secondary"
+    label="Cancel"
+    ariaLabel="Cancel"
+  ></app-button>
+</div>

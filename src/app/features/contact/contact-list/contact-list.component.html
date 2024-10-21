@@ -1,0 +1,115 @@
+<div class="card-header d-flex align-items-center justify-content-between">
+  <h2 class="card-title mb-0 fs-4 fw-semibold">Contact List</h2>
+  <a [routerLink]="['/contacts/new']" class="btn btn-success"
+    >Add New Contact</a
+  >
+</div>
+
+<div class="card-body">
+  <div class="table-responsive mb-4">
+    <table class="table table-bordered mb-0">
+      <thead>
+        <tr>
+          <th scope="col" (click)="sortContacts('id')">
+            ID
+            <em
+              *ngIf="sortField === 'id'"
+              class="bi"
+              [ngClass]="{
+                'bi-sort-up': sortOrder === 'asc',
+                'bi-sort-down': sortOrder === 'desc',
+                'bi-sort': sortOrder !== 'asc' && sortOrder !== 'desc'
+              }"
+            ></em>
+          </th>
+          <th scope="col" (click)="sortContacts('firstName')">
+            First Name
+            <em
+              *ngIf="sortField === 'firstName'"
+              class="bi"
+              [ngClass]="{
+                'bi-sort-up': sortOrder === 'asc',
+                'bi-sort-down': sortOrder === 'desc',
+                'bi-sort': sortOrder !== 'asc' && sortOrder !== 'desc'
+              }"
+            ></em>
+          </th>
+          <th scope="col" (click)="sortContacts('lastName')">
+            Last Name
+            <em
+              *ngIf="sortField === 'lastName'"
+              class="bi"
+              [ngClass]="{
+                'bi-sort-up': sortOrder === 'asc',
+                'bi-sort-down': sortOrder === 'desc',
+                'bi-sort': sortOrder !== 'asc' && sortOrder !== 'desc'
+              }"
+            ></em>
+          </th>
+          <th scope="col" (click)="sortContacts('email')">
+            Email
+            <em
+              *ngIf="sortField === 'email'"
+              class="bi"
+              [ngClass]="{
+                'bi-sort-up': sortOrder === 'asc',
+                'bi-sort-down': sortOrder === 'desc',
+                'bi-sort': sortOrder !== 'asc' && sortOrder !== 'desc'
+              }"
+            ></em>
+          </th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contact of contacts">
+          <td>{{ contact.id }}</td>
+          <td>{{ contact.firstName }}</td>
+          <td>{{ contact.lastName }}</td>
+          <td>{{ contact.email }}</td>
+          <td>
+            <app-button
+              (click)="editContact(contact)"
+              btnClass="btn btn-sm btn-primary"
+              label="Edit"
+              ariaLabel="Edit Contact"
+            ></app-button>
+          </td>
+          <td>
+            <app-button
+              (click)="openDeleteModal(contact)"
+              btnClass="btn btn-sm btn-danger"
+              label="Delete"
+              ariaLabel="Delete Contact"
+            ></app-button>
+          </td>
+        </tr>
+        <tr *ngIf="!loading && contacts.length === 0" class="text-center">
+          <td colspan="6">
+            <div class="alert alert-warning fw-semibold mb-0" role="alert">
+              No Data Found
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="loading && contacts.length === 0">
+          <td colspan="6">
+            <div class="d-flex justify-content-center">
+              <app-loader></app-loader>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ngb-pagination
+    [collectionSize]="totalContacts"
+    [(page)]="pageIndex"
+    [pageSize]="pageSize"
+    (pageChange)="onPageChange($event)"
+    aria-label="Contacts Pagination"
+    size="md"
+    class="d-flex justify-content-center"
+  >
+  </ngb-pagination>
+</div>
